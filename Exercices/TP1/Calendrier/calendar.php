@@ -19,11 +19,11 @@
                     $month = isset($_GET['month']) ? $_GET['month'] : date('F');
                     $year = isset($_GET['year']) ? $_GET['year'] : date('Y');
                     $datestr = "1"." ".$month." ".$year;
-                    for ($daynum=1; $daynum<date('t', strtotime($datestr)); $daynum++) {
-                        $datestr2 = $daynum." ".$month." ".$year;
+                    for ($daynum=1; $daynum<=date('t', strtotime($datestr)); $daynum++) {
+                        $datestr = $daynum." ".$month." ".$year;
                 ?>
                     <tr>
-                        <td><?php echo date('l', strtotime($datestr2)); ?></td>
+                        <td><?php echo date('l', strtotime($datestr)); ?></td>
                         <td><?php echo $daynum; ?></td>
                         <td></td>
                     </tr>
