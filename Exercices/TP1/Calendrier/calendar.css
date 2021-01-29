@@ -1,0 +1,41 @@
+body {
+    background-color: #303030;
+}
+
+table {
+    border-collapse: collapse;
+    background-color: white;
+}
+
+table td, th {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+table thead tr {
+    background-color: red;
+    color: white;
+}
+
+.flex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.flex>* {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.form-content {
+    background-color: gainsboro;
+    border: 3px solid brown;
+    padding: 10%;
+}
+
+.form-content label {
+    font-weight: bold;
+}
