@@ -7,16 +7,17 @@ table {
     background-color: white;
 }
 
-table td, th {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    padding: 5px;
+table tr td {
+    border: 1px solid black;
+    padding: 20px;
     text-align: center;
 }
 
-table thead tr {
+table thead tr th {
     background-color: red;
     color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .flex {
@@ -30,12 +31,32 @@ table thead tr {
     margin-right: 5%;
 }
 
-.form-content {
+.forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+form {
     background-color: gainsboro;
     border: 3px solid brown;
     padding: 10%;
 }
 
-.form-content label {
+form>* {
+    width: 100%;
+}
+
+form label {
     font-weight: bold;
+}
+
+form input[type="submit"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.event {
+    background-color: burlywood;
+    cursor: context-menu;
 }
