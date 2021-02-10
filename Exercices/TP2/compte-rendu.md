@@ -2,12 +2,52 @@
 
 # Compte-rendu de TP
 
-Sujet choisi : 
-
 ## Participants 
 
-* Un
-* Deux
-* ...
+* CHAPPAZ Florian
+* KACHA Tom
+* MEIGNEN Hugo
 
+## Points d'accès wifi
+
+0. Visualisation texte :
+Pour le fichier CSV, nous avons récupéré la variante codée en UTF-8, car il y avait des problèmes d'affichage sur certains caractères.
+
+1. Comptage :
+Nous avons utilisé la commande wc -l.
+Cela nous a permis de trouver qu'il y a 68 points d'accès :
+- La commande renvoie 69 pour le CSV (1 point d'accès par ligne mais la première ligne est un modèle).
+- Elle renvoie 71 pour le JSON, avec 1 accès par ligne, mais la première, deuxième et dernière ligne sont spécifiques au format JSON.
+
+2. Points Multiples :
+
+3. Comptage PHP :
+La routine est contenu dans le fichier comptage.php.
+Le nom du fichier a analyser doit être donné en argument.
+Après avoir utilisé file() pour transformer le fichier en tableau, on récupère le nombre de ligne à l'aide de count().
+A l'aide de la fonction substr(), on vérifie si le fichier est au format CSV ou JSON pour retirer le nombre de lignes adéquat.
+Dans le cas d'un fichier d'un autre format, on retourne 0 bornes.
+
+4. Structure de données :
+Le code se trouve dans le fichier structure_donnees_csv.php.
+Le nom du fichier CSV doit être donné en argument.
+Nous avons décidé d'utiliser la fonction file() pour transformer le fichier en tableau.
+Puis pour chaque élément du tableau (sauf le premier qui est un modèle), on utilise la fonction str_getcsv() pour obtenir un tableau des différentes propriétés.
+Il ne reste plus qu'a créé un tableau associatif pour cette ligne, et d'ajouter ce tableau au tableau général de toutes les bornes ($bornes). On peut vérifier le contenu du tableau final avec la fonction print_r.
+
+5. Proximité
+Code situé à la suite de la question 4 pour pouvoir réutiliser notre liste de bornes.
+Parcours de la liste des bornes une première fois pour afficher toutes les bornes ainsi que leur distance par rapport à Grenette.
+De plus, lors de ce premier parcours, on ajoute à chaque tableau associatif une clé "distance" qui nous sera bien utile par la suite (notamment en question 6). 
+Remarque : Pour modifier un élément de tableau dans une boucle foreach, il est important d'ajouter un '&' devant la variable utilisée pour le '... as ...'. Sinon, nous n'avons que des copies des éléments du tableau et la modification ne se fait pas.
+Puis deuxième parcours pour :
+    - N'afficher que les bornes à moins de 200 mètres et les compter.
+    - Trouver la borne la plus proche pour l'afficher ensuite (à l'aide de deux variables : $distance_plus_proche et $borne_plus_proche).
+
+6. Proximité top N
+N est donné en deuxième argument. Si aucun argument n'est donné, la valeur par défaut est 5.
+Si l'argument N est supérieur au nombre de bornes, on considère qu'il est égal au nombre de bornes.
+On établi ensuite un tableau associatif $distances qui à chaque indice de $bornes associe la distance de la borne à cette indice.
+De cette façon, on peut utiliser la fonction array_multisort pour trier les bornes en fonction du tableau $distances.
+On afficher alors les N premiers éléments à l'aide d'une boucle for.
 
