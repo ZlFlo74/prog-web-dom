@@ -20,6 +20,17 @@ Cela nous a permis de trouver qu'il y a 68 points d'accès :
 - Elle renvoie 71 pour le JSON, avec 1 accès par ligne, mais la première, deuxième et dernière ligne sont spécifiques au format JSON.
 
 2. Points Multiples :
+Afin de déterminer les emplacements différents, leur nombre, et leur nombre de points d’accès, il faut d’abord sélectionner à chaque ligne seulement l’adresse en faisant la commande: 
+cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv.
+On coupe les lignes en délimitant un séparateur, ici la virgule, puis nous choisissons le deuxième champ. Ensuite, il faut supprimer les doublons en comptant combien il y en a pour chaque adresse. Pour cela, on utilise la commande uniq munie de l’option -c qui permet de conserver un exemplaire de chaque adresse, avec le nombre d’occurrence de celles-ci précisé à coté. Enfin, il faut trier cette liste par nombre d’occurrence croissant afin de distinguer plus simplement l’emplacement qui possède le plus de points d’accès (et combien), donc nous ajoutons la commande sort qui sert à trier  les éléments. La commande finale est donc celle-ci :
+
+cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv | uniq -c | sort
+On constate que le lieu qui possède le plus de bornes est la Bibliothèque Etudes (5 bornes).
+
+Il nous reste juste à mettre en évidence le nombre total de points d’accès différents, il suffit donc cette fois de rajouter la commande wc -l qui compte le nombre de ligne :
+
+cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv | uniq -c | wc -l
+Soit 58 lieux différents. (59 - 1 car Antenne 1 est un exemple).
 
 3. Comptage PHP :
 La routine est contenu dans le fichier comptage.php.
