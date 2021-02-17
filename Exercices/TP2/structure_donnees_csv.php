@@ -80,4 +80,26 @@ for ($i=0; $i<$n; $i++)
 }
 echo "\n";
 
+// 7. Géocodage
+
+$adress_counter = 0;
+$total = count($bornes);
+echo "Téléchargement des adresses dans la structure de données... ".$adress_counter."/".$total."\r";
+
+foreach ($bornes as &$borne)
+{
+    $api_url = "https://api-adresse.data.gouv.fr/reverse/?lon=".$borne['lon']."&lat=".$borne['lat'];
+    $adresse_json = smartcurl($api_url,0);
+    $adresse = json_decode($adresse_json)->{'features'}[0]->{'properties'}->{'name'};
+    
+    $borne['adresse'] = $adresse;
+
+    $adress_counter++;
+    echo "Téléchargement des adresses dans la structure de données... ".$adress_counter."/".$total."\r";
+}
+
+echo "\nAdresses ajoutées à la liste des points d'accès\n";
+
+// print_r($bornes); // Décommentez cette ligne pour vérifier que les adresses ont bien été ajoutées
+
 ?>

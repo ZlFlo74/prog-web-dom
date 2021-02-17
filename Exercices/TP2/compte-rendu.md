@@ -56,9 +56,19 @@ Puis deuxième parcours pour :
     - Trouver la borne la plus proche pour l'afficher ensuite (à l'aide de deux variables : $distance_plus_proche et $borne_plus_proche).
 
 6. Proximité top N
+Toujours dans structure_donnees_csv.php.
 N est donné en deuxième argument. Si aucun argument n'est donné, la valeur par défaut est 5.
 Si l'argument N est supérieur au nombre de bornes, on considère qu'il est égal au nombre de bornes.
 On établi ensuite un tableau associatif $distances qui à chaque indice de $bornes associe la distance de la borne à cette indice.
 De cette façon, on peut utiliser la fonction array_multisort pour trier les bornes en fonction du tableau $distances.
-On afficher alors les N premiers éléments à l'aide d'une boucle for.
+On affiche alors les N premiers éléments à l'aide d'une boucle for.
 
+7. Géocodage
+Toujours dans structure_donnees_csv.php.
+La fonction parcourt la liste des bornes. Pour chaque borne : 
+- On construit l'URL à fournir avec la latitude et la longitude.
+- On donne cette URL à la fonction helpers smartcurl() qui nous renvoie un objet JSON.
+- A l'aide de la fonction json_decode(), on récupère seulement la donnée qui nous intéresse. En l'occurence, l'adresse (sans la ville car ici on reste dans Grenoble).
+- On ajoute à la borne la clé 'adresse' qui contiendra l'adresse que l'on vient de récupérer.
+- Pour vérifier que les adresses ont bien été ajoutées, on peut décommenter la ligne avec le print_r qui affichera toute la structure de donnée.
+Petite fonctionnalité supplémentaire : Le temps d'attente pour récupérer toutes les adresses peut être long. Nous avons donc ajouté un compteur en temps réel (ce qui nous a permis de découvrir le métacharactère '\r').
