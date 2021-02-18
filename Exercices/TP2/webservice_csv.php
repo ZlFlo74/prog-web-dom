@@ -44,10 +44,17 @@ foreach ($bornes as $key => $row)
 }
 array_multisort($distances, $bornes);
 
-// Liste des top bornes les plus proches
+// Liste des top bornes les plus proches et ajout du champ adresse pour celles-ci
 $bornes_proches = array();
 for ($i=0; $i<$usr_top; $i++) {
-    $bornes_proches[] = $bornes[$i];
+    $borne = &$bornes[$i];
+
+    $api_url = "https://api-adresse.data.gouv.fr/reverse/?lon=".$borne['lon']."&lat=".$borne['lat'];
+    $adresse_json = smartcurl($api_url,0);
+    $adresse = json_decode($adresse_json)->{'features'}[0]->{'properties'}->{'name'};
+    $borne['adresse'] = $adresse;
+
+    $bornes_proches[] = $borne;
 }
 
 // Conversion en JSON et affichage des top bornes les plus proches

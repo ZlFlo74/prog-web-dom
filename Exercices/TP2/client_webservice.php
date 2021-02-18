@@ -1,0 +1,16 @@
+
+<html>
+  <head>
+    <title>Webservice bornes proches Grenoble</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+<!-- method peut prendre les valeurs "get" et "post" -->
+    <form method="get" action="webservice_json.php">
+        <label for="top">top</label> <input type="text" id="top" name="top"/> <br />
+        <label for="lon">longitude</label> <input type="text" id="lon" name="lon"/><br />
+        <label for="lat">latitude</label> <input type="text" id="lat" name="lat"/>
+        <input type="submit" />
+    </form>
+  </body>
+</html>

@@ -79,3 +79,13 @@ C'est une sorte de condensé de tout ce que nous venons de voir.
 Quelques différences :
 - Les arguments sont passés dans l'URL avec la méthode GET
 - On reçoit une sortie en JSON : utilisation de la fonction json_encode() avce le flag JSON_UNESCAPED_UNICODE pour que les caractères spéciaux comme les accents s'affichent correctement.
+
+9. Format JSON
+On crée un nouveau fichier webservice_json.php.
+On reprend en grande partie le code de la question précédente. 
+La seule différence réside dans le traitement du fichier : on récupère le contenu du fichier JSON avec file_get_contents, puis on transforme le JSON en objet PHP avec json_decode().
+
+10. Client webservice
+Création du fichier client_webservice.php.
+Simple formulaire comme nous en avons déjà vu en TP1.
+Arguments passé avec la méthode GET à webservice_json.php. Nous avons pour l'occasion modifié l'affichage de ce webservice : le résultat est affiché sous forme de tableau.
