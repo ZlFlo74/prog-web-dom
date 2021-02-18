@@ -72,3 +72,10 @@ La fonction parcourt la liste des bornes. Pour chaque borne :
 - On ajoute à la borne la clé 'adresse' qui contiendra l'adresse que l'on vient de récupérer.
 - Pour vérifier que les adresses ont bien été ajoutées, on peut décommenter la ligne avec le print_r qui affichera toute la structure de donnée.
 Petite fonctionnalité supplémentaire : Le temps d'attente pour récupérer toutes les adresses peut être long. Nous avons donc ajouté un compteur en temps réel (ce qui nous a permis de découvrir le métacharactère '\r').
+
+8. Webservice
+On crée cette fois-ci un nouveau fichier webservice_csv.php.
+C'est une sorte de condensé de tout ce que nous venons de voir.
+Quelques différences :
+- Les arguments sont passés dans l'URL avec la méthode GET
+- On reçoit une sortie en JSON : utilisation de la fonction json_encode() avce le flag JSON_UNESCAPED_UNICODE pour que les caractères spéciaux comme les accents s'affichent correctement.
