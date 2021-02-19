@@ -116,3 +116,4 @@ On obtient la sortie :<br>
 On a donc 4 opérateurs et le nombre d'antennes est affiché à côté de leur nom.<br>
 Pour répondre à cette question, nous avons fait le choix d'utiliser la ligne de commande, car nous avons déjà traité une question similaire à la partie précédente, et de plus, une fois que l'outil est maîtrisé, cette solution est la plus simple et rapide. Ecrire un script PHP aurait été beaucoup plus long et plus lourd.
 
+3. <strong>KML Validation</strong>
