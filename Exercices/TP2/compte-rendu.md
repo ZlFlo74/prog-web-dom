@@ -21,12 +21,12 @@ Cela nous a permis de trouver qu'il y a 68 points d'accès :
 
 2. <strong>Points Multiples</strong><br>
 Afin de déterminer les emplacements différents, leur nombre, et leur nombre de points d’accès, il faut d’abord sélectionner à chaque ligne seulement l’adresse en faisant la commande: <br>
-cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv.<br>
+<code>cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv</code><br>
 On coupe les lignes en délimitant un séparateur, ici la virgule, puis nous choisissons le deuxième champ. Ensuite, il faut supprimer les doublons en comptant combien il y en a pour chaque adresse. Pour cela, on utilise la commande uniq munie de l’option -c qui permet de conserver un exemplaire de chaque adresse, avec le nombre d’occurrence de celles-ci précisé à coté. Enfin, il faut trier cette liste par nombre d’occurrence croissant afin de distinguer plus simplement l’emplacement qui possède le plus de points d’accès (et combien), donc nous ajoutons la commande sort qui sert à trier  les éléments. La commande finale est donc celle-ci :<br>
-cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv | uniq -c | sort<br>
+<code>cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv | uniq -c | sort</code><br>
 On constate que le lieu qui possède le plus de bornes est la Bibliothèque Etudes (5 bornes).
 Il nous reste juste à mettre en évidence le nombre total de points d’accès différents, il suffit donc cette fois de rajouter la commande wc -l qui compte le nombre de ligne :<br>
-cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv | uniq -c | wc -l<br>
+<code>cut -d, -f2 borneswifi_EPSG4326_20171004_utf8.csv | uniq -c | wc -l</code><br>
 Soit 58 lieux différents. (59 - 1 car Antenne 1 est un exemple).
 
 3. <strong>Comptage PHP</strong><br>
@@ -86,3 +86,33 @@ La seule différence réside dans le traitement du fichier : on récupère le co
 Création du fichier client_webservice.php.<br>
 Simple formulaire comme nous en avons déjà vu en TP1.<br>
 Arguments passé avec la méthode GET à webservice_json.php. Nous avons pour l'occasion modifié l'affichage de ce webservice : le résultat est affiché sous forme de tableau.
+
+
+## Antennes GSM
+
+1. <strong>CSV Antennes</strong><br>
+A l'aide de la commande wc -l, on trouve que 100 antennes sont référencées.<br>
+Le jeu de données contient des informations en plus par rapport à celui des bornes Wifi. Ces informations sont pour la plupart spécifiques au réseau cellulaire :
+- Si l'antenne est microcellulaire ou non, c'est-à-dire qui ne couvre qu'une petite zone définie (comme un centre commercial).
+- L'opérateur exploitant l'antenne.
+- Les technologies que l'antenne est capable de diffuser : 2G/3G/4G.
+- Un numéro cartoradio et un numéro de support : ces informations ne nous seront à priori pas utiles.
+- Trois champs reprécisant si l'antenne possède ou non chacune des trois technologies 2G, 3G ou 4G.
+Les autres champs peuvent être comparés à ceux des bornes Wifi : un ID d'antenne, un ID d'adresse, des coordonnées et une adresse.<br>
+Dans le cadre d'une démarche OpenData, cela à d'abord un intérêt de transparence par rapport à la couverture de chaque opérateur. On peut alors imaginer pouvoir établir une carte de couverture cellulaire de Grenoble par opérateur et par technologie.
+
+2. <strong>Statistiques opérateurs</strong><br>
+Pour répondre à cette question, nous avons, à l'instar de la deuxième question de la partie précédente, utilisé trois commandes reliées avec des pipes :<br>
+<code>cut -d ';' -f4 DSPE_ANT_GSM_EPSG4326.csv | sort | uniq -c</code><br>
+<code>cut</code> permet de ne récupérer que les champs "Opérateur" de chaque ligne, <code>sort</code> les trie (et donc rassemble les opérateurs identiques), et <code>uniq</code> ne garde qu'un exemplaire de chaque (et l'option <code>-c</code> compte tous les doublons).<br>
+On obtient la sortie :<br>
+<code><pre>
+  26 BYG
+  18 FREE
+   1 OPERATEUR
+  26 ORA
+  30 SFR
+</pre></code><br>
+On a donc 4 opérateurs et le nombre d'antennes est affiché à côté de leur nom.<br>
+Pour répondre à cette question, nous avons fait le choix d'utiliser la ligne de commande, car nous avons déjà traité une question similaire à la partie précédente, et de plus, une fois que l'outil est maîtrisé, cette solution est la plus simple et rapide. Ecrire un script PHP aurait été beaucoup plus long et plus lourd.
+
