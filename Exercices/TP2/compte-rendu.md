@@ -133,7 +133,7 @@ Pour le webservice en question, on reprend grandement le squelette de la partie 
 - le libellé d'adresse
 - l'opérateur
 - la longitude
-- la latitude
+- la latitude<br>
 Comme précédemment on trie par distance croissante (sans ce soucier des opérateurs).<br>
 C'est ensuite avec une boucle while et deux variables i et j que l'on séléctionne les top antennes les plus proches en ne sélectionnant que celles dont l'opérateur correspond. On vérifie également qu'on ne dépasse pas l'indice maximum si le top donné est trop grand.<br>
 Sur l'affichage final sous forme de tableau, nous avons gardé une colonne 'opérateur' pour nous assurer que le tri était correctement fait.
