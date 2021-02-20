@@ -83,7 +83,7 @@ On reprend en grande partie le code de la question précédente. <br>
 La seule différence réside dans le traitement du fichier : on récupère le contenu du fichier JSON avec file_get_contents, puis on transforme le JSON en objet PHP avec json_decode().
 
 10. <strong>Client webservice</strong><br>
-Création du fichier client_webservice.php.<br>
+Création du fichier client_webservice.html.<br>
 Simple formulaire comme nous en avons déjà vu en TP1.<br>
 Arguments passé avec la méthode GET à webservice_json.php. Nous avons pour l'occasion modifié l'affichage de ce webservice : le résultat est affiché sous forme de tableau.
 
@@ -116,6 +116,24 @@ On obtient la sortie :<br>
 On a donc 4 opérateurs et le nombre d'antennes est affiché à côté de leur nom.<br>
 Pour répondre à cette question, nous avons fait le choix d'utiliser la ligne de commande, car nous avons déjà traité une question similaire à la partie précédente, et de plus, une fois que l'outil est maîtrisé, cette solution est la plus simple et rapide. Ecrire un script PHP aurait été beaucoup plus long et plus lourd.
 
-3. <strong>KML Validation</strong>
+3. <strong>KML Validation</strong><br>
 Le format KML étant une application de XML, la vérification synthaxique est très simple à effectuer à l'aide de l'outil xmllint accompagné du flag --noout. Lorsque l'on exécute la commande sur notre jeu de données, aucun message d'erreur n'est affiché.<br>
 Cependant, sur ce genre de jeu de données, il peut être intéressant de vérifier que le jeu de données est conforme à un schéma. Par exemple on aimerait vérifier que pour chaque antenne tous les champs sont indiqués. On pourrait faire cela en rédigeant un fichier XSD. Cela serait très complexe. Mais on constate dans le KML la présence de balises Schema qui indiquent justement un schéma pour chaque dossier d'antennes. Il doit donc certainement exister des outils de validation spécifiques au format KML qui se servent de cette balise Schema.
+
+4. <strong>KML bis</strong><br>
+En terme de lecture, ce format est très compliqué à lire à l'oeil. Il est en effet très long et les balises sont très redondantes ce qui rend les informations moins repérables. A première vue, il serait très difficile de lui appliquer un traitement en lignes de commandes comme nous l'avons fait avcele CSV. Mais comme le JSON, tout est extrêmement bien trié et organisé, ce qui doit rendre les informations faciles d'accès dans un script PHP par exemple. De plus les antennes sont rangées dans des dossiers, un pour chaque opérateur.<br>
+En terme de compacité ce n'est pas non plus l'idéal : le schéma est répété pour chaque opérateur et pourtant il reste le même.
+
+5. <strong>Top N Opérateur</strong><br>
+Le client avec le formulaire se trouve dans le fichier client_webservice_GSM.html.<br>
+Le webservice en question se trouve dans le fichier webservice_GSM.php.<br>
+Pour ce webservice, nous devons choisir lequel des trois format traiter. Pour ce qui est du CSV, on constate l'absence de coordonnées de type [lon,lat]. Les deux autres formats contiennent ces informations. Comme nous ne savons pas encore comment traiter le KML, nous choisissons de traiter le GeoJSON.<br>
+Pour le webservice en question, on reprend grandement le squelette de la partie précédente. On ajoute d'abord à la requête un argument op (pour l'opérateur). Ensuite, les informations que l'on récupère pour chaque antenne sont :
+- l'ID
+- le libellé d'adresse
+- l'opérateur
+- la longitude
+- la latitude
+Comme précédemment on trie par distance croissante (sans ce soucier des opérateurs).<br>
+C'est ensuite avec une boucle while et deux variables i et j que l'on séléctionne les top antennes les plus proches en ne sélectionnant que celles dont l'opérateur correspond. On vérifie également qu'on ne dépasse pas l'indice maximum si le top donné est trop grand.<br>
+Sur l'affichage final sous forme de tableau, nous avons gardé une colonne 'opérateur' pour nous assurer que le tri était correctement fait.
