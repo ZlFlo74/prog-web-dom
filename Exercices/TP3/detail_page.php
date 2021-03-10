@@ -18,18 +18,55 @@ include_once('tp3-helpers.php');
     
     if (isset($_GET['movie_id'])) {
         $url_component = "movie/".$_GET['movie_id'];
-        $api_response = tmdbget($url_component, array("language=fr"));
-        $api_reponse_array = json_decode($api_response);
+        $api_response_vo = tmdbget($url_component);
+        $api_reponse_array_vo = json_decode($api_response_vo);
+        $api_response_en = tmdbget($url_component, array("language"=>"en"));
+        $api_reponse_array_en = json_decode($api_response_en);
+        $api_response_fr = tmdbget($url_component, array("language"=>"fr"));
+        $api_reponse_array_fr = json_decode($api_response_fr);
 
-        if (property_exists($api_reponse_array, "success")) {
+        if (property_exists($api_reponse_array_vo, "success")) {
             echo "<p>Echec : L'identifiant demandé n'existe pas</p>";
         }
         else {
-            echo "<p><b>Titre : </b>".$api_reponse_array->{'title'}."</p>";
-            echo "<p><b>Titre original : </b>".$api_reponse_array->{'original_title'}."</p>";
-            echo "<p><b>Tagline : </b>".$api_reponse_array->{'tagline'}."</p>";
-            echo "<p><b>Description : </b>".$api_reponse_array->{'overview'}."</p>";
-            echo "<p><b>Page : </b><a href='".$api_reponse_array->{'homepage'}."'>".$api_reponse_array->{'homepage'}."</a></p>";
+            echo "<table>
+                    <tr>
+                        <th></th>
+                        <th>Version Originale</th>
+                        <th>Version Anglaise</th>
+                        <th>Version Française</th>
+                    </tr>
+                    <tr>
+                        <th>Titre</th>
+                        <td>".$api_reponse_array_vo->{'title'}."</td>
+                        <td>".$api_reponse_array_en->{'title'}."</td>
+                        <td>".$api_reponse_array_fr->{'title'}."</td>
+                    </tr>
+                    <tr>
+                        <th>Titre original</th>
+                        <td>".$api_reponse_array_vo->{'original_title'}."</td>
+                        <td>".$api_reponse_array_en->{'original_title'}."</td>
+                        <td>".$api_reponse_array_fr->{'original_title'}."</td>
+                    </tr>
+                    <tr>
+                        <th>Tagline</th>
+                        <td>".$api_reponse_array_vo->{'tagline'}."</td>
+                        <td>".$api_reponse_array_en->{'tagline'}."</td>
+                        <td>".$api_reponse_array_fr->{'tagline'}."</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>".$api_reponse_array_vo->{'overview'}."</td>
+                        <td>".$api_reponse_array_en->{'overview'}."</td>
+                        <td>".$api_reponse_array_fr->{'overview'}."</td>
+                    </tr>
+                    <tr>
+                        <th>Page</th>
+                        <td><a href='".$api_reponse_array_vo->{'homepage'}."'>".$api_reponse_array_vo->{'homepage'}."</td>
+                        <td><a href='".$api_reponse_array_en->{'homepage'}."'>".$api_reponse_array_en->{'homepage'}."</td>
+                        <td><a href='".$api_reponse_array_fr->{'homepage'}."'>".$api_reponse_array_fr->{'homepage'}."</td>
+                    </tr>
+                </table>";
         }
     }
     

@@ -22,3 +22,6 @@ Nous avons créé un petit programme en php <em>tmdb_api_cli.php</em>, qui utili
 3. Le fichier pour le client web de cette question est <em>detail_page.php</em>.<br>
 La page se présente comme un simple formulaire demandant un entier : l'identifiant d'un film. A l'aide de la methode GET, cet identifiant est envoyé à la fonction tmdbget. Puis comme précédemment, on utilise json_decode pour pouvoir récupérer les différentes informations et afficher en HTML celles qui nous intéresse.<br>
 On vérifiera cependant que l'ID donné par l'utilisateur correspond à un film. Si on donne à l'API un ID qui n'existe pas, la réponse donnée possède une propriété "success" égal à "false". Quand l'ID existe, cette propriété n'existe pas. On vérifie donc si la propriété "success" existe dans la réponse grâce à la fonction property_exists, et la cas échéant, on affichera un message d'échec.<br>
+
+4. Cette fois-ci, on effectue trois appels à l'API : un pour la VO, un pour la VA et un pour la VF. On stocke alors les réponses dans 3 objets différents.<br>
+Ensuite on construit notre tableau en accédant aux informations comme précédemment, parmi les trois objets que nous avons récolté.
