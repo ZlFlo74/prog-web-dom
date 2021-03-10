@@ -21,8 +21,6 @@ include_once('tp3-helpers.php');
         $api_response = tmdbget($url_component, array("language=fr"));
         $api_reponse_array = json_decode($api_response);
 
-        print_r($api_reponse_array);
-
         if (property_exists($api_reponse_array, "success")) {
             echo "<p>Echec : L'identifiant demandé n'existe pas</p>";
         }
