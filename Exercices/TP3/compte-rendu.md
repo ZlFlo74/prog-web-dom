@@ -25,3 +25,8 @@ On vérifiera cependant que l'ID donné par l'utilisateur correspond à un film.
 
 4. Cette fois-ci, on effectue trois appels à l'API : un pour la VO, un pour la VA et un pour la VF. On stocke alors les réponses dans 3 objets différents.<br>
 Ensuite on construit notre tableau en accédant aux informations comme précédemment, parmi les trois objets que nous avons récolté.
+
+5. On peut récupérer la réponse de l'API Configuration avec tmdbget.<br>
+On peut ainsi récupérer les informations comme la base de l'URL et les tailles de posters disponibles (ici on prendra toujours la taille la plus petite, donc à l'indice 0 du tableau des tailles).<br>
+On contruit alors trois URLs différents pour chaque version, qu'on utilisera dans les balises img sur la dernière ligne du tableau.<br>
+Nous avons également ajouté à chaque balise img un attribut alt, différent en fonction de la version.<br>

@@ -18,6 +18,8 @@ include_once('tp3-helpers.php');
     
     if (isset($_GET['movie_id'])) {
         $url_component = "movie/".$_GET['movie_id'];
+
+        // Récupération des données JSON pour les trois versions du film
         $api_response_vo = tmdbget($url_component);
         $api_reponse_array_vo = json_decode($api_response_vo);
         $api_response_en = tmdbget($url_component, array("language"=>"en"));
@@ -29,7 +31,19 @@ include_once('tp3-helpers.php');
             echo "<p>Echec : L'identifiant demandé n'existe pas</p>";
         }
         else {
-            echo "<table>
+            // Récupération des configurations pour les images
+            $config = tmdbget("configuration");
+            $config_array = json_decode($config);
+
+            // Construction des différents liens pour les différentes versions de l'affiche 
+            $base_url = $config_array->{'images'}->{'base_url'};
+            $size = $config_array->{'images'}->{'poster_sizes'}[0]; // on prendra la plus petite taille
+            $poster_url_vo = $base_url.$size.$api_reponse_array_vo->{'poster_path'};
+            $poster_url_en = $base_url.$size.$api_reponse_array_en->{'poster_path'};
+            $poster_url_fr = $base_url.$size.$api_reponse_array_fr->{'poster_path'};
+
+            echo "
+                <table>
                     <tr>
                         <th></th>
                         <th>Version Originale</th>
@@ -66,9 +80,16 @@ include_once('tp3-helpers.php');
                         <td><a href='".$api_reponse_array_en->{'homepage'}."'>".$api_reponse_array_en->{'homepage'}."</td>
                         <td><a href='".$api_reponse_array_fr->{'homepage'}."'>".$api_reponse_array_fr->{'homepage'}."</td>
                     </tr>
+                    <tr>
+                        <th>Affiche</th>
+                        <td><img src='".$poster_url_vo."' alt='Affiche de ".$api_reponse_array_vo->{'title'}." (VO)' ></td>
+                        <td><img src='".$poster_url_en."' alt='Affiche de ".$api_reponse_array_en->{'title'}." (VA)' ></td>
+                        <td><img src='".$poster_url_fr."' alt='Affiche de ".$api_reponse_array_fr->{'title'}." (VF)' ></td>
+                    </tr>
                 </table>";
         }
     }
+
     
     ?>
 
