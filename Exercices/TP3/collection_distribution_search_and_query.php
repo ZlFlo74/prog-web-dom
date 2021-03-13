@@ -33,12 +33,15 @@ include_once('tp3-helpers.php');
                 $url_component = "collection/".$collection->{'id'};
                 $api_response_movies = tmdbget($url_component);
                 $api_response_movies_array = json_decode($api_response_movies);
+                echo "<ul>";
 
                 foreach($api_response_movies_array->{'parts'} as $movie) {
-                  echo "<h3>".$movie->{'title'}."</h3>";
+                  echo "<li><h3>".$movie->{'title'}."</h3>";
                   echo "<p><b>ID : </b>".$movie->{'id'}."<br>";
-                  echo "<b>Date de sortie : </b>".$movie->{'release_date'}."</p>";
+                  echo "<b>Date de sortie : </b>".$movie->{'release_date'}."</p></li>";
                 }
+
+                echo "</ul>";
             }
         }
     }
