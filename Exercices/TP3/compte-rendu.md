@@ -30,3 +30,10 @@ Ensuite on construit notre tableau en accédant aux informations comme précéde
 On peut ainsi récupérer les informations comme la base de l'URL et les tailles de posters disponibles (ici on prendra toujours la taille la plus petite, donc à l'indice 0 du tableau des tailles).<br>
 On contruit alors trois URLs différents pour chaque version, qu'on utilisera dans les balises img sur la dernière ligne du tableau.<br>
 Nous avons également ajouté à chaque balise img un attribut alt, différent en fonction de la version.<br>
+
+6. Cette fois-ci, on change de fichier. On crée un nouveau fichier nommé <em>collection_distribution_search_and_query.php</em> (on l'utilisera aussi pour la question 7).<br>
+Pour récupérer l'entrée de l'utilisateur, en l'occurence le nom d'une collection, on gère le formulaire exactement de la même manière que précédemment.<br>
+Cette fois-ci, on utilise la fonction de recherche de l'API. L'argument que l'on va passer à tmdbget() sera donc 'search/collection, car c'est une collection que l'on veut chercher. Cependant, avec search, on doit ajouter le paramètre query, c'est-à-dire les termes que l'on veut rechercher. En l'occurence, l'entrée de l'utilisateur dans le formulaire.<br>
+On peut alors récupérer la réponse de l'API, de la même manière que précédemment. Gérons tout d'abord le cas où la recherche n'a aboutit à aucun résultat : la réponse contient un champ 'total_results'. Si ce dernier est à 0, on affiche un message indiquant qu'aucun résultat n'a été trouvé.<br>
+Dans les autres cas, la réponse nous apporte quelques informations par rapport à la collection, en particulier son ID. Mais celà ne nous suffit pas pour pouvoir afficher l'ensemble des films. Nous devons donc refaire appel à l'API, mais cette fois-ci en passant à tmdbget() l'argument 'collection/:id' où :id sera remplacé par l'ID de la collection (trouvé grâce à la recherche). Si par hasard la recherche retourne plusieurs collections, nous retournerons l'ensemble des films de toutes les collections (et nous appellerons donc l'API autant de fois que nécessaire).<br>
+Pour chaque film, on récupère l'ID et la date de sortie.<br>
