@@ -68,8 +68,12 @@ include_once('tp3-helpers.php');
                 echo "<h3>Collection credits</h3>";
                 echo "<ul>";
                 foreach ($collection_credits as $actor_name=>$infos_array) {
+                  $isHobbitStyle = "";
+                  if (strpos($infos_array[0], "Hobbit") !== false) {
+                    $isHobbitStyle = "style='color:red'";
+                  }
                   echo "<li><p>";
-                  echo "<b>".$actor_name." : </b>Role=".$infos_array[0].", Number of movies=".count($infos_array[1]->{'cast'});
+                  echo "<b ".$isHobbitStyle.">".$actor_name." : </b>Role=".$infos_array[0].", Number of movies=".count($infos_array[1]->{'cast'});
                   echo "</p></li>";
                 }
                 echo "</ul>";
